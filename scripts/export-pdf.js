@@ -79,14 +79,12 @@ async function waitForRenderAndPagination(page) {
         resolve();
       };
 
-      const pagesReady = () => document.querySelectorAll('.pagedjs_page').length > 0;
-
-      if (pagesReady()) {
+      // Increase timeout to 60 seconds to allow for full book rendering
+      const timer = setTimeout(() => {
+        console.warn('Paged.js rendering timed out after 60s, proceeding with partial render.');
         done();
-        return;
-      }
+      }, 60000);
 
-      const timer = setTimeout(done, 5000);
       document.addEventListener(
         'pagedjs:rendered',
         () => {
