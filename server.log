@@ -3,3 +3,4 @@
 > node scripts/serve-book.js
 
 Serving book preview at http://127.0.0.1:4173/web/index.html
+Terminated

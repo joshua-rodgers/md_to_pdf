@@ -332,6 +332,7 @@ pre {
 
   .chapter {
     page: chapter;
+    string-set: chapter-subtitle "";
   }
 
   .appendix {

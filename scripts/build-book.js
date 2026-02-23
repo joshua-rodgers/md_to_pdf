@@ -81,11 +81,19 @@ function buildBook() {
       combinedHtmlReady.push('<div class="page-break" aria-hidden="true"></div>');
     }
 
-    combinedMarkdown.push(`<section class="chapter" data-source="${file}">`);
+    // Determine section class based on filename or content
+    let sectionClass = 'chapter';
+    if (file.includes('front-matter') || file.includes('00-')) {
+      sectionClass = 'front-matter';
+    } else if (file.includes('appendix')) {
+      sectionClass = 'appendix';
+    }
+
+    combinedMarkdown.push(`<section class="${sectionClass}" data-source="${file}">`);
     combinedMarkdown.push(chapterMarkdown);
     combinedMarkdown.push('</section>');
 
-    combinedHtmlReady.push(`<section class="chapter" data-source="${file}">`);
+    combinedHtmlReady.push(`<section class="${sectionClass}" data-source="${file}">`);
     combinedHtmlReady.push(chapterMarkdown);
     combinedHtmlReady.push('</section>');
   });
