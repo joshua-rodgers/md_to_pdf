@@ -1,0 +1,5 @@
+
+> md_to_pdf@1.0.0 serve:book
+> node scripts/serve-book.js
+
+Serving book preview at http://127.0.0.1:4173/web/index.html

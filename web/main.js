@@ -59,6 +59,10 @@ async function initBookPreview() {
   try {
     const markdownText = await loadMarkdown();
     renderBook(bookRoot, md, markdownText);
+
+    if (window.PagedPolyfill) {
+      await window.PagedPolyfill.preview();
+    }
   } catch (error) {
     console.error(error);
     bookRoot.innerHTML = `<section class="chapter"><h2>Unable to render book</h2><p>${error.message}</p></section>`;
