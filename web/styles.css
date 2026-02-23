@@ -56,14 +56,36 @@ samp {
   padding: 2.5rem 1.25rem 3rem;
 }
 
-.chapter {
-  break-after: page;
-  page-break-after: always;
+.front-matter,
+.chapter,
+.appendix {
+  break-before: page;
+  page-break-before: always;
 }
 
-.chapter:last-child {
-  break-after: auto;
-  page-break-after: auto;
+.front-matter:first-child,
+.chapter:first-child,
+.appendix:first-child {
+  break-before: auto;
+  page-break-before: auto;
+}
+
+.chapter--recto,
+.appendix--recto {
+  break-before: right;
+  page-break-before: right;
+}
+
+.chapter--dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.85;
+  margin: 0.06em 0.12em 0 0;
+  font-weight: 600;
+}
+
+.chapter--dropcap > p:first-of-type {
+  margin-top: 0.2em;
 }
 
 img,
@@ -140,8 +162,72 @@ pre {
 
 @media print {
   @page {
-    size: A4;
-    margin: 18mm 16mm 20mm;
+    size: 6in 9in;
+    margin: 0.8in 0.7in 0.9in;
+  }
+
+  @page frontmatter {
+    @top-center {
+      content: string(frontmatter-title);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+
+    @bottom-center {
+      content: counter(page, lower-roman);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+  }
+
+  @page chapter {
+    @top-left {
+      content: string(chapter-title);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+
+    @top-right {
+      content: string(chapter-subtitle);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+
+    @bottom-center {
+      content: counter(page);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+  }
+
+  @page appendix {
+    @top-center {
+      content: string(appendix-title);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+
+    @bottom-center {
+      content: "Appendix " counter(page);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+  }
+
+  @page :left {
+    @bottom-left {
+      content: counter(page);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
+  }
+
+  @page :right {
+    @bottom-right {
+      content: counter(page);
+      color: var(--muted-color);
+      font-size: 9pt;
+    }
   }
 
   body {
@@ -163,6 +249,58 @@ pre {
     border-radius: 0;
   }
 
+  .front-matter {
+    page: frontmatter;
+  }
+
+  .chapter {
+    page: chapter;
+  }
+
+  .appendix {
+    page: appendix;
+  }
+
+  .front-matter > h1:first-of-type,
+  .front-matter > h2:first-of-type {
+    string-set: frontmatter-title content(text);
+  }
+
+  .chapter > h1:first-of-type,
+  .chapter > h2:first-of-type {
+    string-set: chapter-title content(text);
+  }
+
+  .chapter > h3:first-of-type,
+  .chapter > h4:first-of-type {
+    string-set: chapter-subtitle content(text);
+  }
+
+  .appendix > h1:first-of-type,
+  .appendix > h2:first-of-type {
+    string-set: appendix-title content(text);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p,
+  h4 + p,
+  h5 + p,
+  h6 + p {
+    break-before: avoid-page;
+    page-break-before: avoid;
+  }
+
   p,
   li {
     orphans: 3;
@@ -170,9 +308,13 @@ pre {
   }
 
   table,
+  tbody,
+  tr,
+  figure,
   img,
   pre,
-  blockquote {
+  blockquote,
+  .code-block {
     break-inside: avoid;
     page-break-inside: avoid;
   }
