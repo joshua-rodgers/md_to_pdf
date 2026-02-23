@@ -1,5 +1,39 @@
 :root {
   color-scheme: light;
+
+  /* ===== Book PDF theme tokens ===== */
+  --book-page-width: 6in;
+  --book-page-height: 9in;
+  --book-page-margin-top: 0.8in;
+  --book-page-margin-right: 0.7in;
+  --book-page-margin-bottom: 0.9in;
+  --book-page-margin-left: 0.7in;
+
+  --body-font-size-print: 11pt;
+  --body-line-height: 1.65;
+
+  --heading-font-family: Inter, "Avenir Next", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --h1-size: 2.05rem;
+  --h2-size: 1.65rem;
+  --h3-size: 1.35rem;
+  --h4-size: 1.15rem;
+  --h5-size: 1rem;
+  --h6-size: 0.92rem;
+  --chapter-title-margin-top: 1.4em;
+  --chapter-title-margin-bottom: 0.6em;
+
+  --table-cell-padding-y: 0.5rem;
+  --table-cell-padding-x: 0.65rem;
+  --table-border-color: #c7d0d9;
+  --table-break-inside: avoid;
+
+  --code-font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --code-font-size: 0.92em;
+
+  --header-footer-font-size: 9pt;
+  --header-footer-font-style: normal;
+  --header-footer-letter-spacing: 0;
+
   --text-color: #1f2328;
   --muted-color: #59636e;
   --bg-color: #ffffff;
@@ -17,7 +51,7 @@ body {
   color: var(--text-color);
   background: var(--bg-color);
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
-  line-height: 1.65;
+  line-height: var(--body-line-height);
 }
 
 h1,
@@ -27,8 +61,32 @@ h4,
 h5,
 h6 {
   line-height: 1.25;
-  margin: 1.4em 0 0.6em;
-  font-family: Inter, "Avenir Next", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: var(--chapter-title-margin-top) 0 var(--chapter-title-margin-bottom);
+  font-family: var(--heading-font-family);
+}
+
+h1 {
+  font-size: var(--h1-size);
+}
+
+h2 {
+  font-size: var(--h2-size);
+}
+
+h3 {
+  font-size: var(--h3-size);
+}
+
+h4 {
+  font-size: var(--h4-size);
+}
+
+h5 {
+  font-size: var(--h5-size);
+}
+
+h6 {
+  font-size: var(--h6-size);
 }
 
 p,
@@ -43,7 +101,8 @@ code,
 pre,
 kbd,
 samp {
-  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: var(--code-font-family);
+  font-size: var(--code-font-size);
 }
 
 #content {
@@ -112,8 +171,8 @@ thead {
 
 th,
 td {
-  border: 1px solid var(--border-color);
-  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--table-border-color);
+  padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
   text-align: left;
   vertical-align: top;
 }
@@ -162,21 +221,25 @@ pre {
 
 @media print {
   @page {
-    size: 6in 9in;
-    margin: 0.8in 0.7in 0.9in;
+    size: var(--book-page-width) var(--book-page-height);
+    margin: var(--book-page-margin-top) var(--book-page-margin-right) var(--book-page-margin-bottom) var(--book-page-margin-left);
   }
 
   @page frontmatter {
     @top-center {
       content: string(frontmatter-title);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
 
     @bottom-center {
       content: counter(page, lower-roman);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
   }
 
@@ -184,19 +247,25 @@ pre {
     @top-left {
       content: string(chapter-title);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
 
     @top-right {
       content: string(chapter-subtitle);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
 
     @bottom-center {
       content: counter(page);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
   }
 
@@ -204,13 +273,17 @@ pre {
     @top-center {
       content: string(appendix-title);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
 
     @bottom-center {
       content: "Appendix " counter(page);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
   }
 
@@ -218,7 +291,9 @@ pre {
     @bottom-left {
       content: counter(page);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
   }
 
@@ -226,14 +301,16 @@ pre {
     @bottom-right {
       content: counter(page);
       color: var(--muted-color);
-      font-size: 9pt;
+      font-size: var(--header-footer-font-size);
+      font-style: var(--header-footer-font-style);
+      letter-spacing: var(--header-footer-letter-spacing);
     }
   }
 
   body {
     margin: 0;
     background: #fff;
-    font-size: 11pt;
+    font-size: var(--body-font-size-print);
   }
 
   .site-header,
@@ -315,7 +392,7 @@ pre {
   pre,
   blockquote,
   .code-block {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: var(--table-break-inside);
+    page-break-inside: var(--table-break-inside);
   }
 }
