@@ -1,18 +1,20 @@
-const bookRoot = document.querySelector('#book');
+function createMarkdownRenderer() {
+  if (!window.markdownit) {
+    throw new Error('markdown-it did not load. Check network access to CDN scripts.');
+  }
 
-if (!bookRoot) {
-  throw new Error('Missing required root container: #book');
-}
+  const renderer = window.markdownit({
+    html: true,
+    linkify: true,
+    typographer: true,
+    breaks: false,
+  });
 
-const md = window.markdownit({
-  html: true,
-  linkify: true,
-  typographer: true,
-  breaks: false,
-});
+  if (window.markdownitFootnote) {
+    renderer.use(window.markdownitFootnote);
+  }
 
-if (window.markdownitFootnote) {
-  md.use(window.markdownitFootnote);
+  return renderer;
 }
 
 async function loadMarkdown() {
@@ -32,7 +34,7 @@ async function loadMarkdown() {
   return response.text();
 }
 
-function renderBook(markdownText) {
+function renderBook(bookRoot, md, markdownText) {
   const rendered = md.render(markdownText);
   bookRoot.innerHTML = rendered;
 
@@ -45,9 +47,28 @@ function renderBook(markdownText) {
   }
 }
 
-loadMarkdown()
-  .then(renderBook)
-  .catch((error) => {
+async function initBookPreview() {
+  const bookRoot = document.querySelector('#book');
+  if (!bookRoot) {
+    console.warn('Book preview root not found (#book). Skipping render for this page.');
+    return;
+  }
+
+  const md = createMarkdownRenderer();
+
+  try {
+    const markdownText = await loadMarkdown();
+    renderBook(bookRoot, md, markdownText);
+  } catch (error) {
     console.error(error);
     bookRoot.innerHTML = `<section class="chapter"><h2>Unable to render book</h2><p>${error.message}</p></section>`;
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    void initBookPreview();
   });
+} else {
+  void initBookPreview();
+}
