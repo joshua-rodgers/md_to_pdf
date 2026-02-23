@@ -1,0 +1,179 @@
+:root {
+  color-scheme: light;
+  --text-color: #1f2328;
+  --muted-color: #59636e;
+  --bg-color: #ffffff;
+  --border-color: #c7d0d9;
+  --blockquote-bg: #f6f8fa;
+  --code-bg: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--text-color);
+  background: var(--bg-color);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.25;
+  margin: 1.4em 0 0.6em;
+  font-family: Inter, "Avenir Next", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+p,
+li,
+blockquote,
+td,
+th {
+  font-size: 1rem;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+#content {
+  margin: 0 auto;
+}
+
+#book {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.chapter {
+  break-after: page;
+  page-break-after: always;
+}
+
+.chapter:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+thead {
+  background: #eef2f6;
+}
+
+th,
+td {
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+blockquote {
+  margin: 1.2rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #9fb3c8;
+  background: var(--blockquote-bg);
+  color: #2d3a45;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 0.85rem 1rem;
+  border-radius: 0.35rem;
+  background: var(--code-bg);
+}
+
+.site-header,
+.site-footer {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  color: var(--muted-color);
+}
+
+@media screen {
+  body {
+    background: #f5f6f8;
+  }
+
+  #book,
+  .site-header,
+  .site-footer {
+    background: var(--bg-color);
+  }
+
+  #book {
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+    border-radius: 8px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm;
+  }
+
+  body {
+    margin: 0;
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  .site-header,
+  .site-footer {
+    display: none;
+  }
+
+  #book {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  table,
+  img,
+  pre,
+  blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
