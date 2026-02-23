@@ -14,6 +14,10 @@ function createMarkdownRenderer() {
     renderer.use(window.markdownitFootnote);
   }
 
+  if (window.markdownItAttrs) {
+    renderer.use(window.markdownItAttrs);
+  }
+
   return renderer;
 }
 
