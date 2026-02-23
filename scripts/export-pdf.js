@@ -59,11 +59,11 @@ function createBookServer() {
 }
 
 async function waitForRenderAndPagination(page) {
-  await page.waitForSelector('#book .chapter', { timeout: 30000 });
+  await page.waitForSelector('.chapter', { timeout: 30000 });
 
   await page.waitForFunction(
     () => {
-      const chapter = document.querySelector('#book .chapter');
+      const chapter = document.querySelector('.chapter');
       return chapter && chapter.textContent && chapter.textContent.trim().length > 0;
     },
     { timeout: 30000 }
