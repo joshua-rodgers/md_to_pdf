@@ -1,0 +1,14 @@
+{
+  "name": "md_to_pdf",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build and export the Learning Through Play book to PDF.",
+  "scripts": {
+    "build:book": "node scripts/build-book.js",
+    "serve:book": "node scripts/serve-book.js",
+    "pdf:book": "npm run build:book && node scripts/export-pdf.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.54.2"
+  }
+}
